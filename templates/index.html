@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Email Generator</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>📧 AI Email Generator</h1>
+        <p class="subtitle">Generate a professional email using AI (Gemini)</p>
+
+        <form action="/generate" method="post" class="email-form">
+            <label for="recipient_name">Recipient Name</label>
+            <input
+                type="text"
+                id="recipient_name"
+                name="recipient_name"
+                placeholder="e.g. Mr. Ahmed Khan"
+                value="{{ recipient_name or '' }}"
+                required
+            >
+
+            <label for="purpose">Email Purpose</label>
+            <textarea
+                id="purpose"
+                name="purpose"
+                rows="3"
+                placeholder="e.g. Request a meeting to discuss project timeline"
+                required
+            >{{ purpose or '' }}</textarea>
+
+            <label for="tone">Tone</label>
+            <select id="tone" name="tone" required>
+                <option value="Professional" {% if tone == 'Professional' %}selected{% endif %}>Professional</option>
+                <option value="Friendly" {% if tone == 'Friendly' %}selected{% endif %}>Friendly</option>
+                <option value="Formal" {% if tone == 'Formal' %}selected{% endif %}>Formal</option>
+            </select>
+
+            <button type="submit">Generate Email</button>
+        </form>
+
+        {% if email_output %}
+        <div class="result">
+            <h2>Generated Email</h2>
+            <pre>{{ email_output }}</pre>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
